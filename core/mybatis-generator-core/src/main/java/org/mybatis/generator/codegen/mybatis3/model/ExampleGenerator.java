@@ -1,5 +1,5 @@
 /*
- *    Copyright 2006-2022 the original author or authors.
+ *    Copyright 2006-2023 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -54,6 +54,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         TopLevelClass topLevelClass = new TopLevelClass(type);
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileComment(topLevelClass);
+        commentGenerator.addModelClassComment(topLevelClass, introspectedTable);
 
         // add default constructor
         Method method = new Method(type.getShortName());
@@ -186,42 +187,66 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         Field field = new Field("condition", FullyQualifiedJavaType.getStringInstance()); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PRIVATE);
         answer.addField(field);
-        answer.addMethod(getGetter(field));
+        Method getter = getGetter(field);
+        answer.addMethod(getter);
+        context.getCommentGenerator().addFieldComment(field, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(getter, introspectedTable);
 
         field = new Field("value", FullyQualifiedJavaType.getObjectInstance()); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PRIVATE);
         answer.addField(field);
-        answer.addMethod(getGetter(field));
+        getter = getGetter(field);
+        answer.addMethod(getter);
+        context.getCommentGenerator().addFieldComment(field, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(getter, introspectedTable);
 
         field = new Field("secondValue", FullyQualifiedJavaType.getObjectInstance()); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PRIVATE);
         answer.addField(field);
-        answer.addMethod(getGetter(field));
+        getter = getGetter(field);
+        answer.addMethod(getter);
+        context.getCommentGenerator().addFieldComment(field, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(getter, introspectedTable);
 
         field = new Field("noValue", FullyQualifiedJavaType.getBooleanPrimitiveInstance()); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PRIVATE);
         answer.addField(field);
-        answer.addMethod(getGetter(field));
+        getter = getGetter(field);
+        answer.addMethod(getter);
+        context.getCommentGenerator().addFieldComment(field, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(getter, introspectedTable);
 
         field = new Field("singleValue", FullyQualifiedJavaType.getBooleanPrimitiveInstance()); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PRIVATE);
         answer.addField(field);
-        answer.addMethod(getGetter(field));
+        getter = getGetter(field);
+        answer.addMethod(getter);
+        context.getCommentGenerator().addFieldComment(field, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(getter, introspectedTable);
 
         field = new Field("betweenValue", FullyQualifiedJavaType.getBooleanPrimitiveInstance()); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PRIVATE);
         answer.addField(field);
-        answer.addMethod(getGetter(field));
+        getter = getGetter(field);
+        answer.addMethod(getter);
+        context.getCommentGenerator().addFieldComment(field, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(getter, introspectedTable);
 
         field = new Field("listValue", FullyQualifiedJavaType.getBooleanPrimitiveInstance()); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PRIVATE);
         answer.addField(field);
-        answer.addMethod(getGetter(field));
+        getter = getGetter(field);
+        answer.addMethod(getter);
+        context.getCommentGenerator().addFieldComment(field, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(getter, introspectedTable);
 
         field = new Field("typeHandler", FullyQualifiedJavaType.getStringInstance()); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PRIVATE);
         answer.addField(field);
-        answer.addMethod(getGetter(field));
+        getter = getGetter(field);
+        answer.addMethod(getter);
+        context.getCommentGenerator().addFieldComment(field, introspectedTable);
+        context.getCommentGenerator().addGeneralMethodComment(getter, introspectedTable);
 
         Method method = new Method("Criterion"); //$NON-NLS-1$
         method.setVisibility(JavaVisibility.PROTECTED);
@@ -232,6 +257,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         method.addBodyLine("this.typeHandler = null;"); //$NON-NLS-1$
         method.addBodyLine("this.noValue = true;"); //$NON-NLS-1$
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         method = new Method("Criterion"); //$NON-NLS-1$
         method.setVisibility(JavaVisibility.PROTECTED);
@@ -249,10 +275,12 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         method.addBodyLine("this.singleValue = true;"); //$NON-NLS-1$
         method.addBodyLine("}"); //$NON-NLS-1$
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         method = createCriterionConstructor();
         method.addBodyLine("this(condition, value, null);"); //$NON-NLS-1$
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         method = createCriterionConstructor();
         method.addParameter(new Parameter(FullyQualifiedJavaType.getObjectInstance(), "secondValue")); //$NON-NLS-1$
@@ -264,11 +292,13 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         method.addBodyLine("this.typeHandler = typeHandler;"); //$NON-NLS-1$
         method.addBodyLine("this.betweenValue = true;"); //$NON-NLS-1$
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         method = createCriterionConstructor();
         method.addParameter(new Parameter(FullyQualifiedJavaType.getObjectInstance(), "secondValue")); //$NON-NLS-1$
         method.addBodyLine("this(condition, value, secondValue, null);"); //$NON-NLS-1$
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         return answer;
     }
@@ -296,6 +326,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         method.setConstructor(true);
         method.addBodyLine("super();"); //$NON-NLS-1$
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         return answer;
     }
@@ -310,12 +341,13 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         answer.setAbstract(true);
         context.getCommentGenerator().addClassComment(answer, introspectedTable);
 
-        Method method = new Method("GeneratedCriteria"); //$NON-NLS-1$
+        Method method = new Method("AbstractGeneratedCriteria"); //$NON-NLS-1$
         method.setVisibility(JavaVisibility.PROTECTED);
         method.setConstructor(true);
         method.addBodyLine("super();"); //$NON-NLS-1$
         method.addBodyLine("criteria = new ArrayList<>();"); //$NON-NLS-1$
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         List<String> criteriaLists = new ArrayList<>();
         criteriaLists.add("criteria"); //$NON-NLS-1$
@@ -352,6 +384,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             method.addBodyLine(sb.toString());
         }
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         // now generate the getAllCriteria method
         if (criteriaLists.size() > 1) {
@@ -379,6 +412,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             method.addBodyLine("return allCriteria;"); //$NON-NLS-1$
         }
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         // now we need to generate the methods that will be used in the SqlMap
         // to generate the dynamic where clause
@@ -396,6 +430,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         method.setReturnType(field.getType());
         method.addBodyLine("return criteria;"); //$NON-NLS-1$
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         // now add the methods for simplifying the individual field set methods
         method = new Method("addCriterion"); //$NON-NLS-1$
@@ -409,6 +444,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             method.addBodyLine("allCriteria = null;"); //$NON-NLS-1$
         }
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         method = new Method("addCriterion"); //$NON-NLS-1$
         method.setVisibility(JavaVisibility.PROTECTED);
@@ -424,6 +460,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             method.addBodyLine("allCriteria = null;"); //$NON-NLS-1$
         }
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         method = new Method("addCriterion"); //$NON-NLS-1$
         method.setVisibility(JavaVisibility.PROTECTED);
@@ -440,6 +477,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             method.addBodyLine("allCriteria = null;"); //$NON-NLS-1$
         }
         answer.addMethod(method);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
         FullyQualifiedJavaType listOfDates =
                 new FullyQualifiedJavaType("java.util.List<java.util.Date>"); //$NON-NLS-1$
@@ -459,6 +497,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             method.addBodyLine(
                     "addCriterion(condition, new java.sql.Date(value.getTime()), property);"); //$NON-NLS-1$
             answer.addMethod(method);
+            context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
             method = new Method("addCriterionForJDBCDate"); //$NON-NLS-1$
             method.setVisibility(JavaVisibility.PROTECTED);
@@ -477,6 +516,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             method.addBodyLine("}"); //$NON-NLS-1$
             method.addBodyLine("addCriterion(condition, dateList, property);"); //$NON-NLS-1$
             answer.addMethod(method);
+            context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
             method = new Method("addCriterionForJDBCDate"); //$NON-NLS-1$
             method.setVisibility(JavaVisibility.PROTECTED);
@@ -493,6 +533,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
                     "addCriterion(condition, new java.sql.Date(value1.getTime())," //$NON-NLS-1$
                     + " new java.sql.Date(value2.getTime()), property);"); //$NON-NLS-1$
             answer.addMethod(method);
+            context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
         }
 
         if (introspectedTable.hasJDBCTimeColumns()) {
@@ -510,6 +551,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             method.addBodyLine(
                     "addCriterion(condition, new java.sql.Time(value.getTime()), property);"); //$NON-NLS-1$
             answer.addMethod(method);
+            context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
             method = new Method("addCriterionForJDBCTime"); //$NON-NLS-1$
             method.setVisibility(JavaVisibility.PROTECTED);
@@ -528,6 +570,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             method.addBodyLine("}"); //$NON-NLS-1$
             method.addBodyLine("addCriterion(condition, timeList, property);"); //$NON-NLS-1$
             answer.addMethod(method);
+            context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
             method = new Method("addCriterionForJDBCTime"); //$NON-NLS-1$
             method.setVisibility(JavaVisibility.PROTECTED);
@@ -544,6 +587,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
                     "addCriterion(condition, new java.sql.Time(value1.getTime())," //$NON-NLS-1$
                     + " new java.sql.Time(value2.getTime()), property);"); //$NON-NLS-1$
             answer.addMethod(method);
+            context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
         }
 
         for (IntrospectedColumn introspectedColumn : introspectedTable.getNonBLOBColumns()) {
@@ -551,24 +595,63 @@ public class ExampleGenerator extends AbstractJavaGenerator {
 
             // here we need to add the individual methods for setting the
             // conditions for a field
-            answer.addMethod(getSetNullMethod(introspectedColumn));
-            answer.addMethod(getSetNotNullMethod(introspectedColumn));
-            answer.addMethod(getSetEqualMethod(introspectedColumn));
-            answer.addMethod(getSetNotEqualMethod(introspectedColumn));
-            answer.addMethod(getSetGreaterThanMethod(introspectedColumn));
-            answer.addMethod(getSetGreaterThenOrEqualMethod(introspectedColumn));
-            answer.addMethod(getSetLessThanMethod(introspectedColumn));
-            answer.addMethod(getSetLessThanOrEqualMethod(introspectedColumn));
+            Method getSetMethod = getSetNullMethod(introspectedColumn);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+            getSetMethod = getSetNotNullMethod(introspectedColumn);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+            getSetMethod = getSetEqualMethod(introspectedColumn);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+            getSetMethod = getSetNotEqualMethod(introspectedColumn);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+            getSetMethod = getSetGreaterThanMethod(introspectedColumn);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+            getSetMethod = getSetGreaterThenOrEqualMethod(introspectedColumn);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+            getSetMethod = getSetLessThanMethod(introspectedColumn);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+            getSetMethod = getSetLessThanOrEqualMethod(introspectedColumn);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
 
             if (introspectedColumn.isJdbcCharacterColumn()) {
-                answer.addMethod(getSetLikeMethod(introspectedColumn));
-                answer.addMethod(getSetNotLikeMethod(introspectedColumn));
+                getSetMethod = getSetLikeMethod(introspectedColumn);
+                answer.addMethod(getSetMethod);
+                context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+                getSetMethod = getSetNotLikeMethod(introspectedColumn);
+                answer.addMethod(getSetMethod);
+                context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
             }
 
-            answer.addMethod(getSetInOrNotInMethod(introspectedColumn, true));
-            answer.addMethod(getSetInOrNotInMethod(introspectedColumn, false));
-            answer.addMethod(getSetBetweenOrNotBetweenMethod(introspectedColumn, true));
-            answer.addMethod(getSetBetweenOrNotBetweenMethod(introspectedColumn, false));
+            getSetMethod = getSetInOrNotInMethod(introspectedColumn, true);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+            getSetMethod = getSetInOrNotInMethod(introspectedColumn, false);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+            getSetMethod = getSetBetweenOrNotBetweenMethod(introspectedColumn, true);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
+
+            getSetMethod = getSetBetweenOrNotBetweenMethod(introspectedColumn, false);
+            answer.addMethod(getSetMethod);
+            context.getCommentGenerator().addGeneralMethodComment(getSetMethod, introspectedTable);
         }
 
         return answer;
