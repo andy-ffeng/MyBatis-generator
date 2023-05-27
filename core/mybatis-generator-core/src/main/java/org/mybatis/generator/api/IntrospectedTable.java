@@ -1,5 +1,5 @@
 /*
- *    Copyright 2006-2022 the original author or authors.
+ *    Copyright 2006-2023 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -406,6 +406,7 @@ public abstract class IntrospectedTable {
 
         setMyBatis3FallbackSqlMapNamespace(calculateMyBatis3FallbackSqlMapNamespace());
 
+        //设置表名
         setSqlMapFullyQualifiedRuntimeTableName(calculateSqlMapFullyQualifiedRuntimeTableName());
         setSqlMapAliasedFullyQualifiedRuntimeTableName(calculateSqlMapAliasedFullyQualifiedRuntimeTableName());
 
@@ -870,11 +871,15 @@ public abstract class IntrospectedTable {
     public String getFullyQualifiedTableNameAtRuntime() {
         return internalAttributes
                 .get(InternalAttribute.ATTR_FULLY_QUALIFIED_TABLE_NAME_AT_RUNTIME);
+
+        // return "order_reconciliation_report";
     }
 
     public String getAliasedFullyQualifiedTableNameAtRuntime() {
         return internalAttributes
                 .get(InternalAttribute.ATTR_ALIASED_FULLY_QUALIFIED_TABLE_NAME_AT_RUNTIME);
+
+        // return "order_reconciliation_report";
     }
 
     /**

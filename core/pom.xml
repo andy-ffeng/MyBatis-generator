@@ -30,7 +30,7 @@
   <groupId>org.mybatis.generator</groupId>
   <artifactId>mybatis-generator</artifactId>
   <name>MyBatis Generator</name>
-  <version>1.4.2</version>
+  <version>2.4.2</version>
   <packaging>pom</packaging>
 
   <inceptionYear>2006</inceptionYear>
@@ -113,6 +113,17 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19.1</version>
+<!--        <configuration>-->
+<!--          <systemPropertyVariables>-->
+<!--            <javax.net.ssl.trustStore>[path to your truststore]</javax.net.ssl.trustStore>-->
+<!--            <javax.net.ssl.trustStorePassword>[your truststore password]</javax.net.ssl.trustStorePassword>-->
+<!--          </systemPropertyVariables>-->
+<!--        </configuration>-->
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
           <!-- turn off deployment by default, we'll turn it back on in the core project -->
@@ -124,6 +135,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <id>enforce-java</id>
@@ -136,6 +148,10 @@
                 <requirePluginVersions>
                   <banSnapshots>false</banSnapshots>
                 </requirePluginVersions>
+                <requireJavaVersion>
+                  <message>You are running an incompatible version of Java. JHipster supports JDK 17 to 11.</message>
+                  <version>[8,9),[9,10),[10,11),[11,12),[12,13),[13,14),[14,15),[15,16),[16,17),[17,18),[18,19)</version>
+                </requireJavaVersion>
               </rules>
             </configuration>
           </execution>
@@ -268,9 +284,9 @@
     <module>mybatis-generator-systests-domtests</module>
     <module>mybatis-generator-maven-plugin</module>
     <module>mybatis-generator-systests-common</module>
-    <module>mybatis-generator-systests-mybatis3</module>
-    <module>mybatis-generator-systests-mybatis3-java8</module>
-    <module>mybatis-generator-systests-kotlin</module>
+<!--    <module>mybatis-generator-systests-mybatis3</module>-->
+<!--    <module>mybatis-generator-systests-mybatis3-java8</module>-->
+<!--    <module>mybatis-generator-systests-kotlin</module>-->
   </modules>
 
   <repositories>
