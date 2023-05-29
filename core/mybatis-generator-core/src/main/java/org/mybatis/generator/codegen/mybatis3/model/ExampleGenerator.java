@@ -392,6 +392,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
                     new FullyQualifiedJavaType("List<Criterion>")); //$NON-NLS-1$
             field.setVisibility(JavaVisibility.PROTECTED);
             answer.addField(field);
+            context.getCommentGenerator().addFieldComment(field, introspectedTable);
         }
 
         method = new Method("getAllCriteria"); //$NON-NLS-1$
@@ -424,6 +425,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         field = new Field("criteria", listOfCriterion); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PROTECTED);
         answer.addField(field);
+        context.getCommentGenerator().addFieldComment(field,introspectedTable);
 
         method = new Method(getGetterMethodName(field.getName(), field.getType()));
         method.setVisibility(JavaVisibility.PUBLIC);
@@ -880,6 +882,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         Field field = new Field(answer, new FullyQualifiedJavaType("java.util.List<Criterion>")); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PROTECTED);
         innerClass.addField(field);
+        context.getCommentGenerator().addFieldComment(field, introspectedTable);
 
         Method method = new Method(getGetterMethodName(field.getName(), field.getType()));
         method.setVisibility(JavaVisibility.PUBLIC);
